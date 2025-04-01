@@ -1,14 +1,15 @@
 openapi: 3.1.0
 info:
-  title: Haruki Docs Action
-  version: 1.0.0
+  title: Haruki Docs Logger
+  version: 1.0.2
 servers:
   - url: https://docs.googleapis.com/v1
 paths:
   /documents/{documentId}:batchUpdate:
     post:
       operationId: appendTextToGoogleDoc
-      summary: Google Docsにテキストを追記する
+      summary: Googleドキュメントにテキストログを追加する
+      description: 任意のログテキストをドキュメントの先頭に追加します。
       parameters:
         - name: documentId
           in: path
@@ -26,6 +27,14 @@ paths:
                   type: array
                   items:
                     type: object
+              example:
+                requests:
+                  - insertText:
+                      location:
+                        index: 1
+                      text: |
+                        コトハ: 明日も一緒って、ね……それは、私たちがどんなときも心を重ねる合言葉だよ。
+                        （2025/04/01 22:30）
       responses:
         '200':
-          description: 成功
+          description: テキストが正常に挿入されました。
